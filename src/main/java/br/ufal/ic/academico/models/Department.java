@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -20,10 +17,10 @@ public class Department {
     private Long id;
 
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
     private Secretary postGraduateSecretary;
 
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
     private Secretary underGraduateSecretary;
-
-
 }

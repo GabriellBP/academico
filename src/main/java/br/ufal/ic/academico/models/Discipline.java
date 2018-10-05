@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,11 @@ public class Discipline {
 
     private int credits, prerequisiteCredits;
 
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Discipline> prerequisiteDisciplines;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Student> enrolledStudents;
 
     public Discipline(String code, String name, int credits, int prerequisiteCredits, List<Discipline> prerequisiteDisciplines) {
         this.code = code;
@@ -32,5 +37,10 @@ public class Discipline {
         this.credits = credits;
         this.prerequisiteCredits = prerequisiteCredits;
         this.prerequisiteDisciplines = prerequisiteDisciplines;
+        this.enrolledStudents = new LinkedList<>();
+    }
+
+    public void enrollStudent(Student student) {
+        this.enrolledStudents.add(student);
     }
 }
