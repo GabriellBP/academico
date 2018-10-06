@@ -1,15 +1,14 @@
 package br.ufal.ic.academico.models;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
 public class Secretary {
 
     @Id
@@ -22,5 +21,9 @@ public class Secretary {
 
     public Secretary(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public Secretary() {
+        this.courses = new LinkedList<>();
     }
 }

@@ -31,4 +31,17 @@ public class SecretaryDAO extends AbstractDAO<Secretary> {
 
         return null;
     }
+
+    public String secretaryType(Secretary secretary) {
+        DepartmentDAO departmentDAO = new DepartmentDAO(currentSession().getSessionFactory());
+
+        for (Department department : departmentDAO.list()) {
+            if (department.getPostGraduateSecretary().equals(secretary))
+                return "POSTGRADUATE";
+            if (department.getUnderGraduateSecretary().equals(secretary))
+                return "UNDERGRADUATE";
+        }
+
+        return "NONE";
+    }
 }
