@@ -7,7 +7,10 @@ import br.ufal.ic.academico.DAOs.StudentDAO;
 import br.ufal.ic.academico.models.*;
 
 import io.dropwizard.hibernate.UnitOfWork;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.ws.rs.*;
@@ -155,6 +158,48 @@ public class StudentResource{
         return Response.ok(disciplineDAO.persist(discipline)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @UnitOfWork
+    public Response getStudent(@PathParam("id") Long id) {
 
+        log.info("get studentById: id={}", id);
+
+        Student student = studentDAO.get(id);
+        if (student == null)
+            return Response.status(404).entity("studentId not found.").build();
+
+        List<Discipline> disciplines = disciplineDAO.list();
+        if (disciplines == null)
+            return Response.status(412).entity("none discipline registered").build();
+
+        List<DisciplineDTO> enrolledStudents = new LinkedList<>();
+        for (Discipline discipline : disciplines) {
+            if (discipline.getEnrolledStudents().contains(student)) {
+                enrolledStudents.add(new DisciplineDTO(discipline.getCode(), discipline.getName()));
+            }
+        }
+
+        return Response.ok(new StudentDTO(student.getId(), student.getName(), enrolledStudents)).build();
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    private class StudentDTO {
+        private Long id;
+        private String name;
+        private List<DisciplineDTO> enrolledStudents;
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    private class DisciplineDTO {
+        private String code;
+        private String name;
+    }
 
 }
