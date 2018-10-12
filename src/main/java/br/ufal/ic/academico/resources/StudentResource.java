@@ -4,13 +4,11 @@ import br.ufal.ic.academico.DAOs.CourseDAO;
 import br.ufal.ic.academico.DAOs.DisciplineDAO;
 import br.ufal.ic.academico.DAOs.SecretaryDAO;
 import br.ufal.ic.academico.DAOs.StudentDAO;
-import br.ufal.ic.academico.DTOs.DisciplineDTO;
-import br.ufal.ic.academico.DTOs.StudentDTO;
 import br.ufal.ic.academico.models.*;
+
 import io.dropwizard.hibernate.UnitOfWork;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.SessionFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

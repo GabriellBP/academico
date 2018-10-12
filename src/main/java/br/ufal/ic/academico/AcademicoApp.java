@@ -5,6 +5,7 @@ import br.ufal.ic.academico.exemplos.MyResource;
 import br.ufal.ic.academico.exemplos.Person;
 import br.ufal.ic.academico.exemplos.PersonDAO;
 import br.ufal.ic.academico.models.*;
+import br.ufal.ic.academico.resources.DepartmentResources;
 import br.ufal.ic.academico.resources.StudentResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -48,9 +49,11 @@ public class AcademicoApp extends Application<ConfigApp> {
 
         final MyResource resource = new MyResource(dao);
         final StudentResource studentResource = new StudentResource(studentDAO, secretaryDAO, courseDAO, disciplineDAO);
+        final DepartmentResources departmentResources = new DepartmentResources(departmentDAO);
 
         environment.jersey().register(resource);
         environment.jersey().register(studentResource);
+        environment.jersey().register(departmentResources);
     }
 
     private final HibernateBundle<ConfigApp> hibernate
