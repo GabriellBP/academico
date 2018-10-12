@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
-public class DepartmentResources {
+public class DepartmentResource {
     private final DepartmentDAO departmentDAO;
 
     @GET

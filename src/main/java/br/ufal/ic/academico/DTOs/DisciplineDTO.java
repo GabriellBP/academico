@@ -17,6 +17,16 @@ public class DisciplineDTO {
     private int credits;
     private int prerequisiteCredits;
     private List<String> prerequisiteDisciplinesCode;
+    private String professor;
+    private List<StudentDTO> enrolledStudents;
 
-
+    public DisciplineDTO(String code, String name, int credits, int prerequisiteCredits, List<String> prerequisiteDisciplinesCode) {
+        this.code = code;
+        this.name = name;
+        this.credits = credits;
+        this.prerequisiteCredits = prerequisiteCredits;
+        this.prerequisiteDisciplinesCode = prerequisiteDisciplinesCode;
+        this.professor = null;
+        this.enrolledStudents = null;
+    }
 }

@@ -31,13 +31,17 @@ public class Discipline {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student> enrolledStudents;
 
-    public Discipline(String code, String name, int credits, int prerequisiteCredits, List<Discipline> prerequisiteDisciplines) {
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private Professor professor;
+
+    public Discipline(String code, String name, int credits, int prerequisiteCredits, List<Discipline> prerequisiteDisciplines, Professor professor) {
         this.code = code;
         this.name = name;
         this.credits = credits;
         this.prerequisiteCredits = prerequisiteCredits;
         this.prerequisiteDisciplines = prerequisiteDisciplines;
         this.enrolledStudents = new LinkedList<>();
+        this.professor = professor;
     }
 
     public void enrollStudent(Student student) {

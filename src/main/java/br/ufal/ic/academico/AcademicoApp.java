@@ -5,7 +5,8 @@ import br.ufal.ic.academico.exemplos.MyResource;
 import br.ufal.ic.academico.exemplos.Person;
 import br.ufal.ic.academico.exemplos.PersonDAO;
 import br.ufal.ic.academico.models.*;
-import br.ufal.ic.academico.resources.DepartmentResources;
+import br.ufal.ic.academico.resources.DepartmentResource;
+import br.ufal.ic.academico.resources.DisciplineResource;
 import br.ufal.ic.academico.resources.StudentResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -49,15 +50,17 @@ public class AcademicoApp extends Application<ConfigApp> {
 
         final MyResource resource = new MyResource(dao);
         final StudentResource studentResource = new StudentResource(studentDAO, secretaryDAO, courseDAO, disciplineDAO);
-        final DepartmentResources departmentResources = new DepartmentResources(departmentDAO);
+        final DepartmentResource departmentResource = new DepartmentResource(departmentDAO);
+        final DisciplineResource disciplineResource = new DisciplineResource(disciplineDAO);
 
         environment.jersey().register(resource);
         environment.jersey().register(studentResource);
-        environment.jersey().register(departmentResources);
+        environment.jersey().register(departmentResource);
+        environment.jersey().register(disciplineResource);
     }
 
     private final HibernateBundle<ConfigApp> hibernate
-            = new HibernateBundle<ConfigApp>(Person.class, Student.class, Department.class, Secretary.class, Course.class, Discipline.class) {
+            = new HibernateBundle<ConfigApp>(Person.class, Student.class, Professor.class, Department.class, Secretary.class, Course.class, Discipline.class) {
         
         @Override
         public DataSourceFactory getDataSourceFactory(ConfigApp configuration) {
