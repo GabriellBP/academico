@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Slf4j
@@ -17,6 +18,21 @@ public class SecretaryDAO extends AbstractDAO<Secretary> {
 
     public List<Secretary> list() throws HibernateException {
         return super.list(query("from Secretary"));
+    }
+
+    @Override
+    public Secretary get(Serializable id) throws HibernateException {
+        log.info("getting department: id={}", id);
+        return super.get(id);
+    }
+
+    @Override
+    public Secretary persist(Secretary entity) throws HibernateException {
+        return super.persist(entity);
+    }
+
+    public void delete(Secretary entity) throws HibernateException {
+        super.currentSession().delete(entity);
     }
 
     public Department getMyDepartment(Secretary secretary) {

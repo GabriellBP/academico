@@ -9,10 +9,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedList;
@@ -24,6 +21,15 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class DisciplineResource {
     private final DisciplineDAO disciplineDAO;
+
+    @GET
+    @UnitOfWork
+    public Response getAll() {
+
+        log.info("get all discipline");
+
+        return Response.ok(disciplineDAO.list()).build();
+    }
 
     @GET
     @Path("/{id}")
@@ -43,5 +49,17 @@ public class DisciplineResource {
             enrolledStudents.add(new StudentDTO(st.getId(), st.getName()));
 
         return Response.ok(new DisciplineDTO(discipline.getCode(), discipline.getName(), discipline.getCredits(), discipline.getPrerequisiteCredits(), prerequisiteDisciplinescode, discipline.getProfessor().getName(), enrolledStudents)).build();
+    }
+
+    @POST
+    @UnitOfWork
+    @Consumes("application/json")
+    public Response save(Discipline entity) {
+
+        log.info("save: {}", entity);
+
+        Discipline p = new Discipline(entity.getCode(), entity.getName(), entity.getCredits(), entity.getPrerequisiteCredits(), entity.getPrerequisiteDisciplines(), entity.getProfessor());
+
+        return Response.ok(disciplineDAO.persist(p)).build();
     }
 }

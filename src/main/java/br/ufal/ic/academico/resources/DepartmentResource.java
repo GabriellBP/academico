@@ -14,9 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -29,6 +27,27 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class DepartmentResource {
     private final DepartmentDAO departmentDAO;
+
+    @GET
+    @UnitOfWork
+    public Response getAll() {
+
+        log.info("get all departments");
+
+        return Response.ok(departmentDAO.list()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @UnitOfWork
+    public Response getById(@PathParam("id") Long id) {
+
+        log.info("getById: id={}", id);
+
+        Department p = departmentDAO.get(id);
+
+        return Response.ok(p).build();
+    }
 
     @GET
     @Path("/offers")
@@ -51,6 +70,21 @@ public class DepartmentResource {
         }
 
         return Response.ok(departments).build();
+    }
+
+    @POST
+    @UnitOfWork
+    @Consumes("application/json")
+    public Response save(Department entity) {
+
+        log.info("save: {}", entity);
+
+        Department p = new Department();
+        p.setUnderGraduateSecretary(entity.getUnderGraduateSecretary());
+        p.setPostGraduateSecretary(entity.getPostGraduateSecretary());
+
+
+        return Response.ok(departmentDAO.persist(p)).build();
     }
 
     private List<DisciplineDTO> getDisciplinesFromCourses(List<Course> courses) {

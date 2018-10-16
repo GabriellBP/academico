@@ -32,14 +32,31 @@ public class Student {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Discipline> finalizedDisciplines;
 
+    public Student(String name, Course course) {
+        this.name = name;
+        this.credits = 0;
+        this.course = course;
+        this.finalizedDisciplines = new LinkedList<>();
+    }
+
     public Student(String name) {
         this.name = name;
         this.credits = 0;
+        this.course = null;
         this.finalizedDisciplines = new LinkedList<>();
     }
 
     public void addFinalizedDisciplines(Discipline discipline) {
         this.credits += discipline.getCredits();
         this.finalizedDisciplines.add(discipline);
+    }
+
+    public boolean enrollmentCourse(Course course) {
+        if (course == null) {
+            this.course = course;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

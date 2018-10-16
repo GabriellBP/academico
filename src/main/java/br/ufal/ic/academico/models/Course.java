@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
 public class Course {
 
     @Id
@@ -24,5 +24,17 @@ public class Course {
     public Course(List<Discipline> discRequired, List<Discipline> discElective) {
         this.discRequired = discRequired;
         this.discElective = discElective;
+    }
+
+    public Course() {
+        this.discRequired = new LinkedList<>();
+        this.discElective = new LinkedList<>();
+    }
+
+    public void addCourse(boolean required, Discipline discipline) {
+        if (required)
+            this.discRequired.add(discipline);
+        else
+            this.discElective.add(discipline);
     }
 }

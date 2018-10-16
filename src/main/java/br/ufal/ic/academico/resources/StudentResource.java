@@ -4,6 +4,7 @@ import br.ufal.ic.academico.DAOs.CourseDAO;
 import br.ufal.ic.academico.DAOs.DisciplineDAO;
 import br.ufal.ic.academico.DAOs.SecretaryDAO;
 import br.ufal.ic.academico.DAOs.StudentDAO;
+import br.ufal.ic.academico.DTOs.StudentDTO;
 import br.ufal.ic.academico.models.*;
 
 import io.dropwizard.hibernate.UnitOfWork;
@@ -181,6 +182,18 @@ public class StudentResource{
         }
 
         return Response.ok(new StudentDTO(student.getId(), student.getName(), enrolledStudents)).build();
+    }
+
+    @POST
+    @UnitOfWork
+    @Consumes("application/json")
+    public Response save(Student entity) {
+
+        log.info("save: {}", entity);
+
+        Student p = new Student(entity.getName(), entity.getCourse());
+
+        return Response.ok(studentDAO.persist(p)).build();
     }
 
     @Getter

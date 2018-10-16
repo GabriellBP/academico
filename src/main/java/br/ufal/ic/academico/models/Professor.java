@@ -19,7 +19,7 @@ public class Professor {
     @Column(unique = true)
     private String name;
 
-    Professor(String name) {
+    public Professor(String name) {
         this.name = name;
     }
 }

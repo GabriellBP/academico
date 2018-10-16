@@ -34,6 +34,10 @@ public class DisciplineDAO extends AbstractDAO<Discipline> {
         return super.persist(entity);
     }
 
+    public void delete(Discipline entity) throws HibernateException {
+        super.currentSession().delete(entity);
+    }
+
     public Course getMyCourse(Discipline discipline) {
         CourseDAO courseDAO = new CourseDAO(currentSession().getSessionFactory());
 

@@ -31,9 +31,13 @@ public class StudentDAO extends AbstractDAO<Student> {
 
         return super.get(id);
     }
-//
-//    @Override
-//    public Student persist(Student entity) throws HibernateException {
-//        return super.persist(entity);
-//    }
+
+    @Override
+    public Student persist(Student entity) throws HibernateException {
+        return super.persist(entity);
+    }
+
+    public void delete(Student entity) throws HibernateException {
+        super.currentSession().delete(entity);
+    }
 }

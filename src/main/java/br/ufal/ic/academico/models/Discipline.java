@@ -3,6 +3,7 @@ package br.ufal.ic.academico.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ public class Discipline {
     @Column(unique = true)
     private String code;
 
+    @Setter
     private String name;
 
     private int credits, prerequisiteCredits;
@@ -42,6 +44,26 @@ public class Discipline {
         this.prerequisiteDisciplines = prerequisiteDisciplines;
         this.enrolledStudents = new LinkedList<>();
         this.professor = professor;
+    }
+
+    public Discipline(String code, String name, int credits, int prerequisiteCredits, Professor professor) {
+        this.code = code;
+        this.name = name;
+        this.credits = credits;
+        this.prerequisiteCredits = prerequisiteCredits;
+        this.prerequisiteDisciplines = null;
+        this.enrolledStudents = new LinkedList<>();
+        this.professor = professor;
+    }
+
+    public Discipline(String code, String name, int credits, int prerequisiteCredits) {
+        this.code = code;
+        this.name = name;
+        this.credits = credits;
+        this.prerequisiteCredits = prerequisiteCredits;
+        this.prerequisiteDisciplines = null;
+        this.enrolledStudents = new LinkedList<>();
+        this.professor = null;
     }
 
     public void enrollStudent(Student student) {
