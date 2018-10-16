@@ -200,7 +200,7 @@ public class StudentResource{
     @RequiredArgsConstructor
     @AllArgsConstructor
     @ToString
-    private class StudentDTO {
+    public class StudentDTO {
         private Long id;
         private String name;
         private List<DisciplineDTO> enrolledStudents;

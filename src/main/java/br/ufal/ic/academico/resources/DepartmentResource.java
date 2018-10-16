@@ -111,7 +111,7 @@ public class DepartmentResource {
     @RequiredArgsConstructor
     @AllArgsConstructor
     @ToString
-    private static class DepartmentDTO {
+    public static class DepartmentDTO {
         List<DisciplineDTO> underGraduateDisciplines;
         List<DisciplineDTO> postGraduateDisciplines;
     }

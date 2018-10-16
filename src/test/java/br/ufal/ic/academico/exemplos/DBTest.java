@@ -1,4 +1,4 @@
-package br.ufal.ic.academico;
+package br.ufal.ic.academico.exemplos;
 
 import br.ufal.ic.academico.exemplos.Person;
 import br.ufal.ic.academico.exemplos.PersonDAO;

@@ -1,4 +1,4 @@
-package br.ufal.ic.academico;
+package br.ufal.ic.academico.exemplos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;

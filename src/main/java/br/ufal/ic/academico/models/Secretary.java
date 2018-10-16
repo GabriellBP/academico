@@ -27,7 +27,7 @@ public class Secretary {
         this.courses = new LinkedList<>();
     }
 
-    void addCourse(Course course) {
+    public void addCourse(Course course) {
         this.courses.add(course);
     }
 }
